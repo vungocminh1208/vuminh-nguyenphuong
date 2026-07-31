@@ -1,0 +1,22 @@
+// Cấu hình cho Cloudflare Workers.
+//
+// Cloudflare đang gộp Pages vào Workers, nên nhiều tài khoản mới không
+// còn thấy tab "Pages" nữa. File này để khi deploy bằng đường Workers,
+// Cloudflare biết chính xác phải làm gì — không phải tự đoán.
+//
+// Deploy bằng Cloudflare Pages (nếu tài khoản bạn còn tab đó) thì file
+// này bị bỏ qua, không ảnh hưởng gì. Cứ để nguyên.
+{
+  // Tên này quyết định địa chỉ web:  <tên>.<subdomain>.workers.dev
+  // Đổi thành tên đôi bạn cho đẹp, ví dụ "minhanh-quocbao"
+  "name": "thiep-cuoi",
+
+  // Ngày này chỉ để Cloudflare biết dùng bộ quy tắc nào. Không cần sửa.
+  "compatibility_date": "2026-07-30",
+
+  // "./" = lấy cả thư mục gốc làm nội dung web.
+  // Thiệp là HTML tĩnh, không có bước build nên không cần đổi.
+  "assets": {
+    "directory": "./"
+  }
+}

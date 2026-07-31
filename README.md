@@ -4,7 +4,9 @@ Trang thiệp cưới tĩnh, một file HTML, không cần build, không cần s
 
 ```
 index.html          ← toàn bộ thiệp (HTML + CSS + JS trong một file)
-_headers            ← cấu hình cache (chỉ Cloudflare Pages / Netlify đọc)
+wrangler.jsonc      ← cấu hình deploy cho Cloudflare
+_headers            ← cấu hình cache (Cloudflare và Netlify đọc)
+.assetsignore       ← danh sách file không đưa lên web
 anh-cuoi/           ← thả ảnh cưới vào đây
 ma-qr/              ← thả mã QR chuyển khoản vào đây
 HUONG-DAN.txt       ← ảnh cưới (A) · mã QR & tài khoản (B) · link bản đồ (C)
@@ -32,7 +34,7 @@ Hai thư mục có kèm file ghi chú ngắn (`THA-ANH-CUOI-VAO-DAY.txt`, `THA-M
 
 ### Bảng so sánh
 
-| | Cloudflare Pages | GitHub Pages | Netlify | Vercel (Hobby) |
+| | **Cloudflare**<br><small>Pages hoặc Workers</small> | GitHub Pages | Netlify | Vercel (Hobby) |
 |---|---|---|---|---|
 | Băng thông miễn phí | **Không giới hạn** | 100 GB/tháng (giới hạn mềm) | 100 GB/tháng | 100 GB/tháng |
 | Vượt hạn mức thì sao | — | Bị chặn tốc độ, có thể trả lỗi 429 | **Tạm dừng site tới đầu kỳ sau** | Chặn deploy, nội dung tĩnh vẫn sống |
@@ -41,11 +43,13 @@ Hai thư mục có kèm file ghi chú ngắn (`THA-ANH-CUOI-VAO-DAY.txt`, `THA-M
 | Tên miền riêng + HTTPS | Miễn phí | Miễn phí | Miễn phí | Miễn phí |
 | Số lần build/tháng | 500 | 10 build/giờ | 300 phút build | 6.000 phút build |
 
-### Kết luận: dùng Cloudflare Pages
+<small>Cloudflare đang gộp Pages vào Workers. Hai đường giống nhau về hạn mức, chỉ khác địa chỉ miễn phí: `.pages.dev` so với `.workers.dev`.</small>
+
+### Kết luận: dùng Cloudflare
 
 Ba lý do, theo thứ tự quan trọng:
 
-**1. Repo được để riêng tư.** Source này chứa **số tài khoản ngân hàng, số điện thoại, địa chỉ nhà** của cả hai gia đình. GitHub Pages bản miễn phí **chỉ chạy được với repo công khai** — nghĩa là mọi thông tin đó bị công khai, bị Google lập chỉ mục, và **nằm vĩnh viễn trong lịch sử Git** kể cả sau này bạn xoá đi. Cloudflare Pages đọc được repo riêng tư mà vẫn miễn phí.
+**1. Repo được để riêng tư.** Source này chứa **số tài khoản ngân hàng, số điện thoại, địa chỉ nhà** của cả hai gia đình. GitHub Pages bản miễn phí **chỉ chạy được với repo công khai** — nghĩa là mọi thông tin đó bị công khai, bị Google lập chỉ mục, và **nằm vĩnh viễn trong lịch sử Git** kể cả sau này bạn xoá đi. Cloudflare đọc được repo riêng tư mà vẫn miễn phí, cả đường Pages và đường Workers.
 
 **2. Băng thông không giới hạn.** Netlify khi vượt 100 GB thì **tạm dừng site** tới đầu kỳ sau — và tạm dừng *tất cả* project trong tài khoản. Đúng lúc khách đang mở link mà thiệp chết là tình huống tệ nhất có thể. Cloudflare không đặt hạn mức băng thông cho tài sản tĩnh ở bất kỳ gói nào.
 
@@ -100,41 +104,70 @@ Không quen dùng dòng lệnh thì cài **GitHub Desktop** (<https://desktop.gi
 
 ---
 
-## Bước 2 — Cách A: Cloudflare Pages (khuyên dùng)
+## Bước 2 — Cách A: Cloudflare (khuyên dùng)
+
+> ### ⚠ Cloudflare đang gộp Pages vào Workers
+>
+> Từ khoảng đầu 2026, Cloudflare dồn Pages vào Workers. Hệ quả:
+>
+> - **"Workers & Pages" không còn ở cấp trên cùng** — nó nằm trong mục **Compute**
+> - **Nhiều tài khoản mới không còn tab "Pages"** nữa. Mở link `/pages` sẽ bị đẩy về Workers
+>
+> Không sao cả — Workers làm được đúng việc này, thậm chí là hướng Cloudflare khuyến khích cho web tĩnh mới. Hướng dẫn dưới đây đi theo đường Workers, chạy được cho cả hai loại tài khoản.
 
 ### 2.1 Tạo tài khoản
 
 <https://dash.cloudflare.com/sign-up> — miễn phí, không cần thẻ.
 
-### 2.2 Nối với repo
+### 2.2 Tìm đúng chỗ trong dashboard
 
-1. Trong dashboard: **Workers & Pages** → **Create** → tab **Pages** → **Connect to Git**
-2. Bấm **Connect GitHub**, cho phép Cloudflare truy cập repo `thiep-cuoi`
-3. Chọn repo đó → **Begin setup**
+Menu bên trái → mở mục **Compute** → chọn **Workers & Pages**.
 
-### 2.3 Cấu hình build
+Không thấy chữ "Compute" thì tìm biểu tượng hoặc mục tên **Workers**. Cách chắc nhất là dùng link trực tiếp:
 
-Thiệp là HTML tĩnh, **không có bước build**, nên để trống hết:
+```
+https://dash.cloudflare.com/?to=/:account/workers-and-pages
+```
+
+### 2.3 Nối với repo GitHub
+
+1. Bấm **Create** hoặc **Create application**
+2. Tìm khu vực **Import a repository** (không phải "Start with a template")
+3. Bấm **Connect GitHub**, cho phép Cloudflare đọc repo `thiep-cuoi`
+4. Chọn repo đó
+
+> Nếu tài khoản bạn **vẫn còn tab "Pages"** thì dùng cũng được, kết quả như nhau: tab **Pages** → **Connect to Git**. Địa chỉ web khi đó là `<tên>.pages.dev` thay vì `.workers.dev`.
+
+### 2.4 Cấu hình — để trống gần hết
+
+Thiệp là HTML tĩnh, **không có bước build**:
 
 | Mục | Điền |
 |---|---|
-| Project name | `thiep-cuoi` (sẽ thành `thiep-cuoi.pages.dev`) |
+| Project / Worker name | `thiep-cuoi` — hoặc đổi cho đẹp, xem Bước 3 |
 | Production branch | `main` |
 | Framework preset | **None** |
 | Build command | **để trống** |
-| Build output directory | **để trống** hoặc `/` |
+| Deploy / output directory | **để trống** hoặc `/` |
 
-Bấm **Save and Deploy**. Khoảng 1 phút sau thiệp lên sóng tại:
+Repo đã có sẵn file **`wrangler.jsonc`** khai báo đúng những thứ này, nên nếu màn hình không hỏi gì thì cứ bấm tiếp — Cloudflare tự đọc file đó.
 
-```
-https://thiep-cuoi.pages.dev
-```
+Bấm **Save and Deploy**. Khoảng một phút sau thiệp lên sóng.
 
-### 2.4 Từ giờ trở đi
+### 2.5 Địa chỉ web sẽ là gì
+
+| Đường deploy | Địa chỉ miễn phí |
+|---|---|
+| Workers | `thiep-cuoi.<subdomain>.workers.dev` |
+| Pages (nếu còn) | `thiep-cuoi.pages.dev` |
+
+`<subdomain>` là tên riêng của tài khoản bạn, Cloudflare tự đặt lúc đầu nhưng **sửa được**: trong trang Workers & Pages, bấm **Change** cạnh *Your subdomain*.
+
+Địa chỉ Workers có ba tầng nên dài hơn Pages một chút. Muốn gọn đẹp thật thì xem Bước 3.
+
+### 2.6 Từ giờ trở đi
 
 Mỗi lần `git push`, Cloudflare tự deploy lại. Không cần làm gì thêm.
-
----
 
 ## Bước 2 — Cách B: GitHub Pages
 
@@ -159,7 +192,7 @@ touch .nojekyll && git add .nojekyll && git commit -m "nojekyll" && git push
 
 | Mức | Kết quả | Chi phí |
 |---|---|---|
-| **0** | `minhanh-quocbao.pages.dev` | **Miễn phí** |
+| **0** | `minhanh-quocbao.<subdomain>.workers.dev`<br>hoặc `minhanh-quocbao.pages.dev` | **Miễn phí** |
 | **1** | `minhanh-quocbao.com` | ~265 nghìn / năm |
 | **2** | `cuoi.tenmiencuaban.com` | Miễn phí nếu đã có tên miền |
 
@@ -167,13 +200,21 @@ touch .nojekyll && git add .nojekyll && git commit -m "nojekyll" && git push
 
 ### Mức 0 — Miễn phí, chỉ cần đặt tên project cho đẹp
 
-Tên miền `.pages.dev` lấy **đúng theo tên project** bạn đặt lúc tạo. Đặt project là `thiep-cuoi` thì ra `thiep-cuoi.pages.dev`; đặt là `minhanh-quocbao` thì ra `minhanh-quocbao.pages.dev` — nhìn đã tình cảm hơn nhiều mà không mất đồng nào.
+Địa chỉ miễn phí lấy **đúng theo tên project** bạn đặt. Đặt `minhanh-quocbao` thì ra `minhanh-quocbao.<subdomain>.workers.dev` (hoặc `minhanh-quocbao.pages.dev` nếu đi đường Pages) — tình cảm hơn `thiep-cuoi` mà không mất đồng nào.
 
-> ### ⚠ ĐẶT TÊN ĐÚNG NGAY LẦN ĐẦU
+Sửa luôn dòng `"name"` trong `wrangler.jsonc` cho khớp:
+
+```jsonc
+"name": "minhanh-quocbao",
+```
+
+> ### ⚠ NGHĨ TÊN TRƯỚC KHI BẤM DEPLOY
 >
-> Tên miền `.pages.dev` **không đổi được sau khi tạo project**. Muốn đổi thì phải **xoá project và tạo lại** từ đầu.
+> **Đường Pages:** địa chỉ `.pages.dev` **không đổi được sau khi tạo project**. Muốn đổi phải **xoá project và tạo lại** từ đầu.
 >
-> Nên nghĩ tên trước khi bấm *Save and Deploy*. Nếu đã gửi link cho khách rồi mới muốn đổi thì coi như link cũ chết — mà link đã nằm trong hàng chục nhóm Zalo.
+> **Đường Workers:** đổi tên Worker thì địa chỉ đổi theo — linh hoạt hơn. Nhưng **link cũ chết ngay**, mà lúc đó nó đã nằm trong hàng chục nhóm Zalo.
+>
+> Cả hai đường đều nên nghĩ tên xong rồi mới deploy.
 
 Vài mẫu tên: `minhanh-quocbao` · `quocbao-minhanh` · `cuoi-minhanh-quocbao` · `mavaqb`
 
@@ -217,14 +258,14 @@ Trường hợp này **không cần chuyển nameserver sang Cloudflare**: chỉ
 
 ---
 
-### Gắn tên miền vào Cloudflare Pages
+### Gắn tên miền vào Cloudflare
 
-1. Vào project → tab **Custom domains** → **Set up a custom domain**
+1. Vào project → tab **Custom domains** (đường Workers có thể ghi **Domains & Routes**) → **Set up a custom domain** / **Add**
 2. Nhập tên miền, ví dụ `minhanh-quocbao.com`
 3. Cloudflare kiểm tra DNS rồi tự cấp chứng chỉ HTTPS — thường vài phút, có khi tới 15 phút
 4. Làm thêm một lần nữa cho `www.minhanh-quocbao.com`, để khách gõ kèm `www` cũng vào được
 
-> **Lỗi 522 hay gặp:** thêm bản ghi CNAME ở DNS nhưng **quên khai báo tên miền trong tab Custom domains** của project. Pages chưa biết tên miền đó thuộc về nó nên trả lỗi. Phải làm cả hai bước.
+> **Lỗi 522 hay gặp:** thêm bản ghi CNAME ở DNS nhưng **quên khai báo tên miền trong tab Custom domains** của project. Cloudflare chưa biết tên miền đó thuộc về project nào nên trả lỗi. Phải làm cả hai bước.
 
 ---
 
@@ -254,7 +295,7 @@ Theo thứ tự hiệu quả:
 
 **4. Bản đồ chỉ tải khi khách cuộn tới.** Google Maps nhúng nặng vài MB; thiệp đã tự hoãn tải cho tới khi khách cuộn gần tới phần Thông tin lễ cưới. Ai chỉ xem trang bìa rồi thoát thì không tốn dữ liệu cho bản đồ. Bạn không phải cấu hình gì.
 
-**5. File `_headers` đã có sẵn** — cho trình duyệt giữ ảnh lại 1 ngày, khách mở lại thiệp không phải tải lần nữa. Chỉ Cloudflare Pages và Netlify đọc file này.
+**5. File `_headers` đã có sẵn** — cho trình duyệt giữ ảnh lại 1 ngày, khách mở lại thiệp không phải tải lần nữa. Chạy được trên cả Cloudflare Pages, Cloudflare Workers và Netlify. GitHub Pages bỏ qua file này (vẫn không sao, CDN của GitHub tự cache).
 
 **Không cần lo về số người vào cùng lúc.** Đây là trang tĩnh nằm trên CDN, không có database, không có server xử lý. CDN sinh ra để làm đúng việc này — vài nghìn người mở cùng lúc cũng không nặng hơn một người.
 
@@ -271,7 +312,7 @@ Thiệp này chứa:
 
 Hai điều nên biết:
 
-**Repo public thì nằm vĩnh viễn trong lịch sử Git.** Sau này xoá thông tin đi, người ta vẫn xem lại được commit cũ. Đây là lý do chính nên để repo **private** và dùng Cloudflare Pages.
+**Repo public thì nằm vĩnh viễn trong lịch sử Git.** Sau này xoá thông tin đi, người ta vẫn xem lại được commit cũ. Đây là lý do chính nên để repo **private** và dùng Cloudflare.
 
 **Site nào cũng công khai, kể cả từ repo private.** Bất kỳ ai có link đều mở được — mà thiệp cưới thì được chuyển tiếp tự do trong các nhóm Zalo. Không tránh được, và cũng bình thường với thiệp cưới.
 
@@ -315,7 +356,7 @@ git commit -m "Sửa ảnh cưới"
 git push
 ```
 
-Cloudflare Pages tự deploy lại trong khoảng 1 phút. Sửa nội dung mà khách vẫn thấy bản cũ thì đợi 5 phút (theo cấu hình cache trong `_headers`), hoặc vào dashboard Cloudflare bấm **Purge cache**.
+Cloudflare tự deploy lại trong khoảng 1 phút. Sửa nội dung mà khách vẫn thấy bản cũ thì đợi 5 phút (theo cấu hình cache trong `_headers`), hoặc vào dashboard Cloudflare bấm **Purge cache**.
 
 ---
 
@@ -323,6 +364,8 @@ Cloudflare Pages tự deploy lại trong khoảng 1 phút. Sửa nội dung mà 
 
 | Hiện tượng | Nguyên nhân |
 |---|---|
+| **Dashboard Cloudflare không thấy "Workers & Pages"** | Nó nằm trong mục **Compute**, không còn ở cấp trên cùng. Hoặc dùng link trực tiếp `dash.cloudflare.com/?to=/:account/workers-and-pages` |
+| **Không thấy tab "Pages" đâu cả** | Tài khoản mới không còn Pages nữa, Cloudflare đã gộp vào Workers. Dùng **Create application → Import a repository**, kết quả như nhau |
 | Mở link ra 404 | File không tên `index.html`, hoặc chưa nằm ở thư mục gốc |
 | Ảnh không hiện, chỉ có hoạ tiết | Sai tên file, hoặc thư mục `anh-cuoi/` chưa được commit |
 | Zalo hiện `{{TEN_CO_DAU}}` | Chưa sửa 4 dòng trong `<head>` |
