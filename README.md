@@ -5,12 +5,16 @@ Trang thiệp cưới tĩnh, một file HTML, không cần build, không cần s
 ```
 index.html          ← toàn bộ thiệp (HTML + CSS + JS trong một file)
 _headers            ← cấu hình cache (chỉ Cloudflare Pages / Netlify đọc)
-anh-cuoi/           ← ảnh cưới
-ma-qr/              ← mã QR chuyển khoản
-HUONG-DAN.txt       ← cách thả ảnh và mã QR
-HUONG-DAN-RSVP.md   ← cách nối RSVP vào Google Sheet
-README.md           ← file này
+anh-cuoi/           ← thả ảnh cưới vào đây
+ma-qr/              ← thả mã QR chuyển khoản vào đây
+HUONG-DAN.txt       ← ảnh cưới (A) · mã QR & tài khoản (B) · link bản đồ (C)
+HUONG-DAN-RSVP.md   ← nối RSVP và Sổ lưu bút vào Google Sheet
+README.md           ← file này: đẩy lên GitHub và go live
 ```
+
+Hai thư mục có kèm file ghi chú ngắn (`THA-ANH-CUOI-VAO-DAY.txt`, `THA-MA-QR-VAO-DAY.txt`) chỉ để nhắc tên file cần thả vào — xoá được, không ảnh hưởng gì.
+
+**Sửa nội dung thiệp ở đâu:** mở `index.html`, mọi thứ nằm trong khối cấu hình ①–⑧ ngay đầu thẻ `<script>`. Chi tiết từng khối xem `HUONG-DAN.txt`.
 
 > **Nếu bạn đang dùng bản cũ tên `thiep-cuoi.html`:** đổi tên thành **`index.html`**.
 > Mọi nền tảng hosting đều tìm `index.html` ở thư mục gốc. Để tên khác thì mở link ra
@@ -248,7 +252,9 @@ Theo thứ tự hiệu quả:
 
 **3. Tự chứa font (nếu muốn kỹ).** Thiệp đang tải font từ Google Fonts, tức là thêm 2 lần bắt tay mạng ra server nước ngoài trước khi chữ hiện. Muốn bỏ hẳn: tải font về từ <https://gwfh.mranftl.com> (nhớ chọn bộ **vietnamese**), đặt vào thư mục `fonts/`, rồi thay thẻ `<link>` Google Fonts bằng khai báo `@font-face` trỏ vào file cục bộ. Giúp được khoảng 200–400 ms cho khách Việt Nam.
 
-**4. File `_headers` đã có sẵn** — cho trình duyệt giữ ảnh lại 1 ngày, khách mở lại thiệp không phải tải lần nữa. Chỉ Cloudflare Pages và Netlify đọc file này.
+**4. Bản đồ chỉ tải khi khách cuộn tới.** Google Maps nhúng nặng vài MB; thiệp đã tự hoãn tải cho tới khi khách cuộn gần tới phần Thông tin lễ cưới. Ai chỉ xem trang bìa rồi thoát thì không tốn dữ liệu cho bản đồ. Bạn không phải cấu hình gì.
+
+**5. File `_headers` đã có sẵn** — cho trình duyệt giữ ảnh lại 1 ngày, khách mở lại thiệp không phải tải lần nữa. Chỉ Cloudflare Pages và Netlify đọc file này.
 
 **Không cần lo về số người vào cùng lúc.** Đây là trang tĩnh nằm trên CDN, không có database, không có server xử lý. CDN sinh ra để làm đúng việc này — vài nghìn người mở cùng lúc cũng không nặng hơn một người.
 
@@ -292,7 +298,10 @@ Kiểm bằng **điện thoại thật, dùng 4G**, đừng chỉ kiểm trên m
 - [ ] Bấm nút "Sao chép số tài khoản" → dán ra kiểm tra, phải khớp với mã QR
 - [ ] Gửi thử một phản hồi RSVP → Google Sheet có dòng mới, email về
 - [ ] Bấm nút "Nhắn Zalo" → mở đúng số điện thoại
-- [ ] Bản đồ hiện đúng địa điểm, nút "Xem chỉ đường" mở đúng chỗ
+- [ ] Đã dán link Google Maps vào `linkBanDo` cả hai địa điểm (xem PHẦN C của `HUONG-DAN.txt`)
+- [ ] Bản đồ **hiện ra bản đồ thật**, không phải chỉ hiện tên địa điểm + nút
+- [ ] Bấm qua lại hai nút "Nhà gái" / "Nhà trai" → bản đồ có đổi
+- [ ] Bấm "Xem chỉ đường" trên điện thoại → mở app Maps, ghim **đúng nhà**, không ghim ra giữa xã
 - [ ] Đếm ngược chạy đúng ngày cưới
 - [ ] Mở bằng 4G xem có phải chờ lâu không — nếu chậm thì ảnh chưa nén đủ
 
@@ -319,5 +328,9 @@ Cloudflare Pages tự deploy lại trong khoảng 1 phút. Sửa nội dung mà 
 | Zalo hiện `{{TEN_CO_DAU}}` | Chưa sửa 4 dòng trong `<head>` |
 | Zalo không hiện ảnh xem trước | `og:image` phải là địa chỉ **đầy đủ** `https://…`, không dùng đường dẫn tương đối |
 | Zalo vẫn hiện thông tin cũ | Zalo/Facebook cache ảnh xem trước. Dùng Facebook Sharing Debugger để làm mới, hoặc thêm `?v=2` vào cuối link khi gửi |
+| **Bản đồ chỉ hiện tên địa điểm + nút, không có bản đồ** | Đã dán link rút gọn `maps.app.goo.gl` — Google không cho nhúng loại này. Lấy link "Nhúng bản đồ" trên **máy tính**, xem PHẦN C của `HUONG-DAN.txt`. Bấm F12 xem Console, thiệp có nhắc |
+| Bản đồ ghim lệch, ra giữa xã | `linkBanDo` còn để trống nên thiệp đang đoán vị trí từ chữ địa chỉ. Dán link Maps vào |
+| Mã QR có dòng chữ đỏ "MÃ MẪU — CHƯA QUÉT ĐƯỢC" | Chưa thả file mã QR vào `ma-qr/`, hoặc sai tên file |
+| Quét mã QR ra số khác với số hiện trên thiệp | `soTK` trong khối ⑤ và số nằm trong ảnh QR là hai thứ độc lập. Tạo lại mã QR cho khớp |
 | Sổ lưu bút trống, quay mãi | Chưa dán URL Apps Script, hoặc chưa triển khai lại sau khi sửa code |
 | Gửi RSVP báo lỗi đường truyền | Apps Script chưa đặt quyền "Bất kỳ ai" — xem `HUONG-DAN-RSVP.md` |

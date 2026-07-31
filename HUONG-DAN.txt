@@ -8,8 +8,14 @@
       anh-cuoi/            <-- ảnh cưới
       ma-qr/               <-- mã QR chuyển khoản
 
-  File này gộp hướng dẫn cho cả hai thư mục.
-  Phần nhận phản hồi RSVP nằm riêng ở HUONG-DAN-RSVP.md.
+  File này gồm ba phần:
+
+      PHẦN A   Ảnh cưới              -> thư mục anh-cuoi/
+      PHẦN B   Mã QR & tài khoản     -> thư mục ma-qr/ + khối ⑤
+      PHẦN C   Link Google Maps      -> khối ③
+
+  Cách nhận phản hồi RSVP và giữ Sổ lưu bút: xem HUONG-DAN-RSVP.md
+  Cách đẩy lên GitHub và go live: xem README.md
 
 
 ═══════════════════════════════════════════════════════════════════
@@ -22,8 +28,58 @@
   4. Thả mã QR vào ma-qr/           (phần B dưới đây)
   5. Sửa số tài khoản, địa chỉ, số điện thoại trong khối ③ và phần
      Mừng cưới
-  6. Nối RSVP vào Google Sheet      (HUONG-DAN-RSVP.md)
-  7. Tự quét thử mã QR bằng điện thoại — ĐỪNG BỎ QUA
+  6. Dán link Google Maps vào linkBanDo của hai địa điểm (phần C)
+  7. Nối RSVP vào Google Sheet      (HUONG-DAN-RSVP.md)
+  8. Tự quét thử mã QR bằng điện thoại — ĐỪNG BỎ QUA
+
+
+═══════════════════════════════════════════════════════════════════
+  BẢNG TRA CỨU — MUỐN SỬA GÌ THÌ VÀO ĐÂU
+═══════════════════════════════════════════════════════════════════
+
+  Mở index.html, mọi thứ nằm trong khối cấu hình ①–⑧ ngay đầu thẻ
+  <script>. Mỗi khối đều có chú thích giải thích chi tiết tại chỗ.
+
+  ┌─────────────────────────────────┬──────────────────────────────┐
+  │ Muốn sửa                        │ Vào khối / khoá              │
+  ├─────────────────────────────────┼──────────────────────────────┤
+  │ Tên cô dâu, chú rể              │ ①  coDau · chuRe             │
+  │ Ngày cưới                       │ ②  ngayCuoi                  │
+  │ Giờ đồng hồ đếm ngược nhắm tới  │ ②  gioChinh                  │
+  │ Hạn khách xác nhận tham dự      │ ②  hanPhanHoi                │
+  │ Ngày quen nhau (đếm số ngày)    │ ②  ngayQuenNhau              │
+  │ Tỉnh / thành phố                │ ②  thanhPho                  │
+  │ Địa chỉ, giờ lễ hai bên         │ ③  diaDiem                   │
+  │ Số điện thoại (nút Zalo)        │ ③  diaDiem[].dienThoai       │
+  │ Link Google Maps                │ ③  diaDiem[].linkBanDo  (C)  │
+  │ Thư mục ảnh                     │ ④  thuMucAnh                 │
+  │ Ảnh nền trang bìa               │ ④  anhBia               (A)  │
+  │ Danh sách ảnh album             │ ④  album                (A)  │
+  │ Thư mục mã QR                   │ ⑤  thuMucQR             (B)  │
+  │ Ngân hàng, số tài khoản, mã QR  │ ⑤  taiKhoan             (B)  │
+  │ Nơi nhận phản hồi RSVP          │ ⑥  urlGuiRSVP                │
+  │ Bật/tắt tải lời chúc thật       │ ⑥  taiLoiChuc                │
+  │ Câu trích dẫn ở trang bìa       │ ⑦  trichDan                  │
+  │ Dòng ký tên dưới câu trích dẫn  │ ⑦  kyTen                     │
+  │ Ghi chú nhỏ dưới bản đồ         │ ⑦  ghiChuThem                │
+  │ Lời chúc mẫu trong Sổ lưu bút   │ ⑧  loiChucMau                │
+  └─────────────────────────────────┴──────────────────────────────┘
+
+  (A) (B) (C) = xem phần tương ứng ở dưới để biết chi tiết.
+
+  ⚠  BỐN THỨ KHÔNG NẰM TRONG KHỐI CẤU HÌNH, phải sửa tay:
+
+      · Tiêu đề trang, og:title, description, og:image
+        -> 4 dòng trong <head> ở ĐẦU file, có biển báo ⚠ rõ ràng.
+           Zalo và Facebook không chạy JavaScript nên chỉ đọc được
+           chữ tĩnh ở đó. Bỏ qua là ảnh xem trước hiện tên cũ.
+
+  ⚠  HAI CHỖ VIẾT {coDau} / {chuRe} THÌ TỰ THAY THÀNH TÊN:
+
+      · ⑦ trichDan, kyTen
+      · ⑧ loiChucMau  (cả 'loi' và 'vai')
+
+      Nên đổi tên ở khối ① là hai chỗ này tự đổi theo, không sửa tay.
 
 
 
@@ -291,3 +347,80 @@
   Đổi số tài khoản thì phải tạo lại mã QR mới. Đổi mã QR mà quên sửa
   soTK thì khách quét mã ra một số, bấm nút sao chép ra số khác.
   Bước quét thử ở B5 chính là để bắt lỗi này.
+
+███████████████████████████████████████████████████████████████████
+  PHẦN C — LINK BẢN ĐỒ  (khối ③ trong index.html)
+███████████████████████████████████████████████████████████████████
+
+  Mỗi địa điểm có một biến  linkBanDo  để dán link Google Maps.
+
+  Dán link chính xác hơn hẳn việc để thiệp tự đoán từ chữ địa chỉ.
+  Với địa chỉ nông thôn kiểu "Thôn Yên Thư, xã Yên Phương", Google
+  đoán từ chữ rất dễ ghim lệch ra giữa xã.
+
+
+───────────────────────────────────────────────────────────────────
+  C1 · LẤY LINK ĐÚNG LOẠI — QUAN TRỌNG
+───────────────────────────────────────────────────────────────────
+
+  Google có nhiều kiểu link, và KHÔNG phải kiểu nào cũng nhúng được.
+
+  ✔ TỐT NHẤT — bản đồ hiện ngay trên thiệp
+
+      Mở Google Maps trên MÁY TÍNH (không phải điện thoại)
+      -> tìm địa điểm
+      -> Chia sẻ
+      -> chọn tab "Nhúng bản đồ"
+      -> Sao chép HTML
+
+      Dán CẢ ĐOẠN HTML vào linkBanDo cũng được, thiệp tự lấy phần src.
+
+      Link đúng loại có dạng:
+          https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!...
+
+
+  ✔ CŨNG ĐƯỢC — copy thẳng từ thanh địa chỉ trên máy tính
+
+          https://www.google.com/maps/place/.../@21.3085,105.6042,17z/...
+
+      Thiệp tự đọc toạ độ trong link để ghim đúng điểm.
+
+
+  ✘ KHÔNG NHÚNG ĐƯỢC — link rút gọn
+
+          https://maps.app.goo.gl/xxxxxxxx
+
+      Đây là link ra khi bấm "Chia sẻ" trên ĐIỆN THOẠI. Google không
+      cho nhúng link rút gọn vào trang khác, không cách nào lách được.
+
+      Dán loại này thì nút "Xem chỉ đường" vẫn chạy tốt, nhưng khung
+      bản đồ trên thiệp chỉ hiện lớp chờ (tên địa điểm + nút mở Google
+      Maps). Vẫn dùng được, chỉ là không đẹp bằng.
+
+      Mở thiệp rồi bấm F12 xem tab Console — thiệp sẽ nhắc nếu bạn
+      dán sai loại link.
+
+
+  Để trống ''  thì thiệp tự dựng bản đồ từ diaChi + khuVuc như cũ.
+
+
+───────────────────────────────────────────────────────────────────
+  C2 · NÚT "XEM CHỈ ĐƯỜNG" ĐƯỢC XỬ LÝ RIÊNG
+───────────────────────────────────────────────────────────────────
+
+  Link nhúng nếu mở trong tab mới thì chỉ ra bản đồ trơ, KHÔNG có nút
+  chỉ đường — mà đó lại là thứ khách cần nhất để đi tới đám cưới.
+
+  Nên thiệp xử lý riêng: gặp link nhúng thì tự lấy toạ độ bên trong
+  rồi dựng lại link chỉ đường đúng nghĩa. Bạn không phải làm gì.
+
+
+───────────────────────────────────────────────────────────────────
+  C3 · NHỚ KIỂM TRA
+───────────────────────────────────────────────────────────────────
+
+  1. Mở thiệp, cuộn tới phần Thông tin lễ cưới.
+  2. Bấm qua lại hai nút "Nhà gái" / "Nhà trai", xem bản đồ có đổi.
+  3. Bấm "Xem chỉ đường" trên ĐIỆN THOẠI -> phải mở app Google Maps
+     và ghim đúng nhà, không phải ghim ra giữa xã.
+  4. Nhờ một người ở xa bấm thử, xem chỉ đường có ra tuyến hợp lý.

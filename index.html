@@ -391,8 +391,23 @@ a{color:inherit}
 .tab-do button:last-child{border-right:1px solid rgba(139,0,0,.22)}
 .tab-do button[aria-pressed="true"]{background:var(--do-ruou);border-color:var(--do-ruou);color:#fff}
 .ban-do{border:1px solid rgba(212,175,55,.55);padding:6px;background:var(--ngoc-trai)}
-.ban-do iframe{width:100%;height:clamp(260px,42vw,410px);border:0;display:block;filter:grayscale(.28) contrast(1.04)}
-.ban-do-du{padding:34px 20px;text-align:center;color:var(--khoi);font-size:14px}
+.do-boc{position:relative;height:clamp(240px,42vw,410px);overflow:hidden}
+/* Lớp chờ nằm SAU bản đồ và không bao giờ bị xoá. Bản đồ tải được thì
+   phủ lên; không tải được thì khách vẫn thấy nút mở Google Maps.     */
+.do-cho{
+  position:absolute;inset:0;display:grid;place-content:center;justify-items:center;
+  gap:13px;padding:24px;text-align:center;background:var(--kem-lua)
+}
+.do-cho svg{width:32px;height:32px;color:var(--do-ruou);opacity:.45}
+.do-cho-ten{margin:0;font-family:var(--f-hoa);font-style:italic;
+  font-size:clamp(14px,2vw,16.5px);line-height:1.5;color:var(--muc);max-width:28ch}
+.do-cho .lien{margin-top:0}
+#do{
+  position:absolute;inset:0;width:100%;height:100%;border:0;
+  opacity:0;pointer-events:none;transition:opacity .9s var(--lua);
+  filter:grayscale(.26) contrast(1.04)
+}
+#do.ro{opacity:1;pointer-events:auto}
 
 /* ═══════════════ ALBUM ═══════════════ */
 .tranh{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;grid-auto-flow:dense}
@@ -424,16 +439,18 @@ a{color:inherit}
   color:rgba(255,255,255,.55);font-size:30px;transition:.3s}
 .dieu:hover{color:var(--vang-kim)}
 .dieu--t{left:0}.dieu--p{right:0}
+@media(max-width:640px){.dieu{width:15%;font-size:24px}}
 #dong-kinh{position:absolute;top:20px;right:22px;border:0;background:none;cursor:pointer;
   color:rgba(255,255,255,.6);font-size:26px;line-height:1;padding:8px;transition:.3s}
 #dong-kinh:hover{color:var(--vang-kim);transform:rotate(90deg)}
 
 /* ═══════════════ ĐẾM NGƯỢC ═══════════════ */
 .sec--do{overflow:hidden}
-.dem{display:flex;justify-content:center;gap:clamp(4px,3vw,42px);margin-top:44px;flex-wrap:nowrap}
-.o-dem{text-align:center;min-width:clamp(64px,17vw,110px);position:relative}
+.dem{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(4px,2vw,42px);
+  margin-top:44px;max-width:620px;margin-inline:auto}
+.o-dem{text-align:center;position:relative;min-width:0}
 .o-dem b{display:block;font-family:var(--f-hoa);font-weight:300;
-  font-size:clamp(40px,10vw,74px);line-height:1;color:var(--vang-nhat);
+  font-size:clamp(36px,9vw,74px);line-height:1;color:var(--vang-nhat);
   font-variant-numeric:tabular-nums}
 .o-dem u{text-decoration:none;display:block;margin-top:12px;font-size:9.5px;letter-spacing:.3em;
   text-transform:uppercase;color:rgba(255,255,255,.6)}
@@ -482,6 +499,7 @@ a{color:inherit}
 .chon input:checked+label{border-color:var(--do-ruou);background:var(--do-ruou);color:#fff}
 .chon input:checked+label small{color:var(--vang-nhat)}
 .chon input:focus-visible+label{outline:2px solid var(--vang-kim);outline-offset:2px}
+@media(max-width:430px){.chon{grid-template-columns:1fr}}
 .gui{
   display:inline-flex;align-items:center;gap:11px;margin-top:34px;cursor:pointer;
   background:var(--do-ruou);border:1px solid var(--do-ruou);color:#fff;
@@ -509,9 +527,9 @@ a{color:inherit}
 .ma svg,.ma img{width:100%;height:100%;display:block}
 .ma--mau{margin-bottom:46px;position:relative}
 .ma--mau::after{
-  content:"Mã mẫu — chưa quét được";position:absolute;left:-20px;right:-20px;bottom:-30px;
-  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;text-align:center;
-  color:#FF9C9C
+  content:"Mã mẫu — chưa quét được";position:absolute;left:-32px;right:-32px;bottom:-30px;
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;text-align:center;
+  line-height:1.5;color:#FF9C9C
 }
 .stk{font-family:var(--f-hoa);font-size:clamp(21px,3.4vw,26px);letter-spacing:.08em;
   color:#fff;margin:0;font-variant-numeric:tabular-nums}
@@ -704,9 +722,17 @@ a{color:inherit}
     <div class="len">
       <div class="tab-do" id="tab-do" role="group" aria-label="Chọn địa điểm để xem bản đồ"></div>
       <div class="ban-do">
-        <p class="ban-do-du" id="do-du">Đang tải bản đồ…</p>
-        <iframe id="do" title="Bản đồ tới địa điểm lễ cưới" loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade" style="display:none"></iframe>
+        <div class="do-boc" id="do-boc">
+          <div class="do-cho" id="do-cho">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/>
+            </svg>
+            <p class="do-cho-ten" id="do-cho-ten">Đang mở bản đồ…</p>
+            <a class="lien" id="do-cho-lien" href="https://www.google.com/maps" target="_blank" rel="noopener">Mở Google Maps →</a>
+          </div>
+          <iframe id="do" title="Bản đồ tới địa điểm lễ cưới"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
       </div>
     </div>
     <p class="dan giua len" style="margin:22px auto 0;font-size:13.5px" data-t="ghiChuThem">Có chỗ gửi xe ngay đầu ngõ. Trang phục gợi ý: thanh lịch — sắc đỏ, kem hoặc trắng ngà.</p>
@@ -909,8 +935,8 @@ const CAUHINH = {
    Sửa xong HAI dòng này là 14 chỗ trong thiệp tự đổi theo. Còn
    4 dòng trong <head> ở đầu file phải sửa tay — xem biển báo.   */
 
-  coDau: { ten: 'Nguyễn Phương',  dayDu: 'Nguyễn Dương Hằng Phương' },
-  chuRe: { ten: 'Vũ Minh',  dayDu: 'Vũ Ngọc Hà Minh' },
+  coDau: { ten: 'TÊN CÔ DÂU',  dayDu: 'HỌ TÊN ĐẦY ĐỦ CÔ DÂU' },
+  chuRe: { ten: 'TÊN CHÚ RỂ',  dayDu: 'HỌ TÊN ĐẦY ĐỦ CHÚ RỂ' },
 
 
 /* ═════════════════ ② NGÀY GIỜ ═════════════════
@@ -918,7 +944,7 @@ const CAUHINH = {
    Ngày âm lịch, can chi và thứ trong tuần được TỰ TÍNH.         */
 
   ngayCuoi:     '2026-09-19',   // ngày chính: trang bìa, đếm ngược, SEO
-  gioChinh:     '15:00',        // mốc đồng hồ đếm ngược nhắm tới
+  gioChinh:     '11:00',        // mốc đồng hồ đếm ngược nhắm tới
   hanPhanHoi:   '2026-09-02',   // hạn khách xác nhận tham dự
   ngayQuenNhau: '2024-01-08',   // để tính "đã bên nhau bao nhiêu ngày"
   thanhPho:     'Vĩnh Phúc',
@@ -931,24 +957,52 @@ const CAUHINH = {
    bieuTuong : 'hy' chữ song hỷ · 'nhan' đôi nhẫn · 'long' đèn lồng
    dienThoai : dùng cho nút gọi và nút nhắn Zalo
    Tổ chức ở nhà hàng thì thay 'ten' bằng tên nhà hàng.
-   Bản đồ và nút chỉ đường tự dựng từ diaChi + khuVuc.           */
+
+   ───────────────────────────────────────────────────────────────
+   linkBanDo : DÁN LINK GOOGLE MAPS CỦA ĐỊA ĐIỂM VÀO ĐÂY
+   ───────────────────────────────────────────────────────────────
+   Chính xác hơn nhiều so với để thiệp tự đoán từ chữ địa chỉ —
+   nhất là với địa chỉ nông thôn, Google đoán từ chữ rất dễ lệch.
+
+   ✔ TỐT NHẤT — bản đồ hiện ngay trên thiệp:
+       Mở Google Maps trên MÁY TÍNH, tìm địa điểm
+       -> Chia sẻ -> tab "Nhúng bản đồ" -> Sao chép HTML
+       Dán CẢ ĐOẠN HTML vào đây cũng được, thiệp tự lấy phần src.
+       Link đúng có dạng:
+         https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!...
+
+   ✔ CŨNG ĐƯỢC — copy thẳng từ thanh địa chỉ trên máy tính:
+         https://www.google.com/maps/place/.../@21.3085,105.6042,17z/...
+       Thiệp tự đọc toạ độ trong link để ghim đúng điểm.
+
+   ✘ KHÔNG NHÚNG ĐƯỢC — link rút gọn khi bấm "Chia sẻ" trên điện thoại:
+         https://maps.app.goo.gl/xxxxxxxx
+       Google KHÔNG cho nhúng link rút gọn vào trang khác. Dán loại
+       này thì nút "Xem chỉ đường" và "Mở Google Maps" vẫn chạy tốt,
+       nhưng khung bản đồ trên thiệp chỉ hiện lớp chờ.
+       Mở bằng máy tính để lấy một trong hai loại link ở trên.
+       (Mở thiệp rồi bấm F12 xem Console, thiệp sẽ nhắc nếu dán sai loại.)
+
+   Để trống '' thì thiệp tự dựng bản đồ từ diaChi + khuVuc như cũ.   */
 
   diaDiem: [
     {
       nhan: 'Nhà gái',  tieuDe: 'Lễ Vu Quy',  bieuTuong: 'nhan',
       ngay: '2026-09-19',  gio: '09:00',  ghiChu: 'Đón khách từ 08:30',
       ten:       'Tư gia nhà gái',
-      diaChi:    'TDP Hà Châu, xã Bình Xuyên',
-      khuVuc:    'Vĩnh Phúc',
-      dienThoai: '0965 410 846'
+      diaChi:    'Số 27, đường Kim Ngọc, phường Liên Bảo',
+      khuVuc:    'TP Vĩnh Yên, Vĩnh Phúc',
+      dienThoai: '0912 345 678',
+      linkBanDo: ''        // <-- DÁN LINK GOOGLE MAPS NHÀ GÁI VÀO ĐÂY
     },
     {
       nhan: 'Nhà trai', tieuDe: 'Lễ Thành Hôn', bieuTuong: 'hy',
-      ngay: '2026-09-19',  gio: '15:00',  ghiChu: 'Đón khách từ 14:30',
+      ngay: '2026-09-19',  gio: '11:00',  ghiChu: 'Đón khách từ 10:30',
       ten:       'Tư gia nhà trai',
-      diaChi:    'thôn Thúy Sơn, xã Tam Dương Bắc',
-      khuVuc:    'Vĩnh Phúc',
-      dienThoai: '0985 284 811'
+      diaChi:    'Thôn Yên Thư, xã Yên Phương',
+      khuVuc:    'Huyện Yên Lạc, Vĩnh Phúc',
+      dienThoai: '0987 654 321',
+      linkBanDo: ''        // <-- DÁN LINK GOOGLE MAPS NHÀ TRAI VÀO ĐÂY
     }
   ],
 
@@ -1428,31 +1482,96 @@ $$('#menu a').forEach(a => a.addEventListener('click', () => {
 /* ── 4 · ĐỊA ĐIỂM NHÀ GÁI / NHÀ TRAI & BẢN ĐỒ ───────────────
    Cả hai thẻ và bản đồ đều dựng từ CAUHINH.diaDiem.             */
 const KY_HIEU = { hy:'#hy', nhan:'#nhan', long:'#long' };
-const diaChiDu   = d => `${d.diaChi}, ${d.khuVuc}`;
-const urlChiDuong = d => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(diaChiDu(d));
-const urlNhungDo  = d => 'https://www.google.com/maps?q=' + encodeURIComponent(diaChiDu(d)) + '&hl=vi&z=15&output=embed';
+const diaChiDu = d => `${d.diaChi}, ${d.khuVuc}`;
 
-const khungDo = $('#do'), duDo = $('#do-du');
-let doXong = false, dangXem = null, henDo;
+/* Dán cả đoạn <iframe src="..."> cũng được — tự lấy phần trong src */
+function chuanHoaLink(t){
+  t = String(t || '').trim();
+  const m = t.match(/src\s*=\s*["']([^"']+)["']/i);
+  return m ? m[1].trim() : t;
+}
 
-function moBanDo(d){
-  dangXem = d; doXong = false;
-  khungDo.style.display = 'none';
-  duDo.style.display = '';
-  duDo.textContent = 'Đang tải bản đồ…';
-  khungDo.src = urlNhungDo(d);
-  clearTimeout(henDo);
-  henDo = setTimeout(() => {
-    if (doXong) return;
-    duDo.innerHTML = 'Bản đồ không tải được trên thiết bị này. Bạn bấm '
-      + `<a class="lien" style="margin:0" href="${urlChiDuong(dangXem)}" target="_blank" rel="noopener">mở Google Maps</a>`
-      + ' để xem chỉ đường.';
-  }, 4500);
+/* Đọc toạ độ trong link Maps. Hai dạng link đặt toạ độ theo thứ tự
+   NGƯỢC nhau, nên phải phân biệt:
+     link nhúng  ...!2d<kinh độ>!3d<vĩ độ>...
+     link place  ...!3d<vĩ độ>!4d<kinh độ>...                       */
+function tachToaDo(link){
+  let m;
+  if (/\/maps\/embed\?/.test(link)) {
+    m = link.match(/!2d(-?\d+\.?\d*)!3d(-?\d+\.?\d*)/);
+    return m ? m[2] + ',' + m[1] : null;
+  }
+  m = link.match(/!3d(-?\d+\.?\d*)!4d(-?\d+\.?\d*)/)   /* toạ độ điểm thật */
+   || link.match(/@(-?\d+\.?\d*),(-?\d+\.?\d*)/)       /* tâm khung nhìn  */
+   || link.match(/[?&]q=(-?\d+\.?\d*),\s*(-?\d+\.?\d*)/);
+  return m ? m[1] + ',' + m[2] : null;
+}
+
+/* Nút "Xem chỉ đường" — thứ khách thật sự dùng để tìm đường tới.
+   Link NHÚNG mở ra trong tab mới chỉ là bản đồ trơ, KHÔNG có nút chỉ
+   đường. Nên với link nhúng phải lấy toạ độ trong đó rồi dựng lại
+   link tìm kiếm đúng nghĩa.                                         */
+function urlChiDuong(d){
+  const link = chuanHoaLink(d.linkBanDo);
+  const timKiem = q => 'https://www.google.com/maps/search/?api=1&query=' + q;
+
+  if (/\/maps\/embed\?/.test(link)) {
+    const t = tachToaDo(link);
+    return timKiem(t || encodeURIComponent(diaChiDu(d)));
+  }
+  if (link) return link;        /* link chia sẻ / link đầy đủ -> mở ra có nút chỉ đường */
+  return timKiem(encodeURIComponent(diaChiDu(d)));
+}
+
+/* Bản đồ nhúng. Trả về null nếu link không nhúng được — khi đó khung
+   bản đồ giữ lớp chờ, nút "Mở Google Maps" vẫn dùng bình thường.     */
+function urlNhungDo(d){
+  const link = chuanHoaLink(d.linkBanDo);
+
+  if (/\/maps\/embed\?/.test(link)) return link;        // link "Nhúng bản đồ" — dùng luôn
+
+  const toaDo = link && tachToaDo(link);                  // link đầy đủ — lấy toạ độ
+  if (toaDo) return 'https://www.google.com/maps?q=' + toaDo + '&hl=vi&z=17&output=embed';
+
+  if (link) {                                             // link rút gọn — không nhúng được
+    console.warn('[Thiệp cưới] Link bản đồ của "' + d.nhan + '" không nhúng được: ' + link
+      + '\nGoogle không cho nhúng link rút gọn (maps.app.goo.gl). Mở Google Maps trên máy tính'
+      + ' -> Chia sẻ -> "Nhúng bản đồ" -> Sao chép HTML, rồi dán vào linkBanDo.'
+      + '\nNút "Xem chỉ đường" vẫn hoạt động bình thường với link hiện tại.');
+    return null;
+  }
+  return 'https://www.google.com/maps?q=' + encodeURIComponent(diaChiDu(d))  // không có link
+       + '&hl=vi&z=15&output=embed';
+}
+
+const khungDo = $('#do'), tenCho = $('#do-cho-ten'), lienCho = $('#do-cho-lien');
+let dangXem = null, daNapDo = false;
+
+/* Lớp chờ luôn nằm sau bản đồ, KHÔNG bao giờ bị xoá. Bản đồ tải được
+   thì phủ lên; Google chặn nhúng hay mạng chậm thì khách vẫn có nút
+   "Mở Google Maps" dùng được. Không cần đoán xem tải lỗi hay không.  */
+function chonBanDo(d){
+  dangXem = d;
+  tenCho.textContent = d.ten + ' — ' + d.khuVuc;
+  lienCho.href = urlChiDuong(d);
+  khungDo.classList.remove('ro');
+  const u = urlNhungDo(d);
+  if (!u) { khungDo.removeAttribute('src'); return; }   /* giữ lớp chờ */
+  if (daNapDo) khungDo.src = u;
 }
 khungDo.addEventListener('load', () => {
-  if (!khungDo.getAttribute('src')) return;
-  doXong = true; khungDo.style.display = 'block'; duDo.style.display = 'none';
+  if (khungDo.getAttribute('src')) khungDo.classList.add('ro');
 });
+
+/* Google Maps nhúng rất nặng, chỉ tải khi khách cuộn gần tới.
+   KHÔNG dùng loading="lazy" của trình duyệt, vì thẻ iframe bị ẩn thì
+   trình duyệt không có gì để quan sát nên sẽ không tải bao giờ.      */
+function napBanDo(){
+  if (daNapDo) return;
+  daNapDo = true;
+  const u = dangXem && urlNhungDo(dangXem);
+  if (u) khungDo.src = u;
+}
 
 const oThe = $('#the-doi'), oTab = $('#tab-do'), cuoi = C.diaDiem.length - 1;
 C.diaDiem.forEach((d, i) => {
@@ -1469,7 +1588,7 @@ C.diaDiem.forEach((d, i) => {
     + `<p class="noi"><strong>${esc(d.ten)}</strong><span>${esc(d.diaChi)}<br>${esc(d.khuVuc)}</span></p>`
     + (d.ghiChu ? `<p class="ghi">${esc(d.ghiChu)}</p>` : '')
     + `<div class="the-lien">`
-    +   `<a class="lien" href="${urlChiDuong(d)}" target="_blank" rel="noopener">Xem chỉ đường →</a>`
+    +   `<a class="lien" href="${esc(urlChiDuong(d))}" target="_blank" rel="noopener">Xem chỉ đường →</a>`
     +   (d.dienThoai
           ? `<a class="lien" href="https://zalo.me/${soZalo(d.dienThoai)}" target="_blank" rel="noopener">Nhắn Zalo ${esc(d.nhan.toLowerCase())} →</a>`
           : '')
@@ -1483,11 +1602,18 @@ C.diaDiem.forEach((d, i) => {
   nut.addEventListener('click', () => {
     $$('#tab-do button').forEach(b => b.setAttribute('aria-pressed', 'false'));
     nut.setAttribute('aria-pressed', 'true');
-    moBanDo(d);
+    chonBanDo(d);
   });
   oTab.appendChild(nut);
 });
-moBanDo(C.diaDiem[cuoi]);          /* mặc định mở bản đồ nhà trai */
+chonBanDo(C.diaDiem[cuoi]);        /* mặc định chọn bản đồ nhà trai */
+if (typeof IntersectionObserver === 'function') {
+  new IntersectionObserver((es, ob) => {
+    if (es[0].isIntersecting) { ob.disconnect(); napBanDo(); }
+  }, { rootMargin: '400px 0px' }).observe($('#do-boc'));
+} else {
+  napBanDo();
+}
 
 /* ── 5 · ALBUM & KHUNG XEM ẢNH ─────────────────────────────── */
 const tranh = $('#tranh');
