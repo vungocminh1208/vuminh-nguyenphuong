@@ -1,0 +1,15 @@
+# Không cho khách đọc file hướng dẫn qua web.
+#
+# Netlify KHÔNG có file kiểu .assetsignore / .vercelignore, nên với site
+# không có bước build thì mọi file trong repo đều bị đưa lên web — kể cả
+# HUONG-DAN.txt. File này chặn lại bằng cách chuyển hướng về trang chính.
+#
+# Netlify và Cloudflare đều đọc file này.
+# Vercel bỏ qua — nhưng .vercelignore đã lo phần đó rồi.
+
+/README.md            /  301
+/HUONG-DAN.txt        /  301
+/HUONG-DAN-RSVP.md    /  301
+/wrangler.jsonc       /  301
+/vercel.json          /  301
+/_headers             /  301

@@ -2,11 +2,23 @@
   THIỆP CƯỚI ONLINE — HƯỚNG DẪN SỬ DỤNG
 ═══════════════════════════════════════════════════════════════════
 
-  Ba file phải để cạnh nhau, đúng cấu trúc này:
+  Cấu trúc thư mục:
 
-      index.html
-      anh-cuoi/            <-- ảnh cưới
-      ma-qr/               <-- mã QR chuyển khoản
+      index.html                 <-- toàn bộ thiệp
+      anh-cuoi/                  <-- thả ảnh cưới vào đây      (phần A)
+      ma-qr/                     <-- thả mã QR vào đây          (phần B)
+
+      HUONG-DAN.txt              <-- file này
+      HUONG-DAN-RSVP.md          <-- nối Google Sheet
+      README.md                  <-- đưa thiệp lên mạng
+
+      _headers      _redirects      .assetsignore
+      wrangler.jsonc     vercel.json     .vercelignore
+                                 <-- cấu hình deploy, xem README
+
+  Ba file cấu hình ở dòng cuối bắt đầu bằng dấu chấm nên BỊ ẨN trên
+  máy tính. macOS: bấm Cmd+Shift+dấu chấm để hiện. Windows: tab View
+  rồi tick "Hidden items". Đừng lo thiếu file — chúng vẫn ở đó.
 
   File này gồm ba phần:
 

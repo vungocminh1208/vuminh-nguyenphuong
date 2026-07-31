@@ -1,0 +1,14 @@
+# Những file này KHÔNG cần đưa lên web — chỉ dùng để bạn đọc.
+# Không có dòng này thì khách gõ /HUONG-DAN.txt là đọc được hết.
+#
+# Chỉ có tác dụng khi deploy bằng đường Cloudflare Workers.
+# Deploy bằng Pages hoặc GitHub Pages thì các file này vẫn công khai
+# (không có gì bí mật, chỉ là không cần thiết).
+
+README.md
+HUONG-DAN.txt
+HUONG-DAN-RSVP.md
+wrangler.jsonc
+.assetsignore
+anh-cuoi/THA-ANH-CUOI-VAO-DAY.txt
+ma-qr/THA-MA-QR-VAO-DAY.txt

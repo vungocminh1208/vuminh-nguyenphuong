@@ -1,0 +1,15 @@
+# Chỉ có tác dụng trên Cloudflare Pages và Netlify.
+# GitHub Pages bỏ qua file này (vẫn không sao, CDN của GitHub tự cache).
+
+# Ảnh và mã QR: cho trình duyệt giữ lại 1 ngày.
+# Khách mở lại thiệp trong ngày sẽ không phải tải ảnh lần nữa.
+# Không đặt lâu hơn, để nếu bạn thay ảnh thì khách thấy ảnh mới sớm.
+/anh-cuoi/*
+  Cache-Control: public, max-age=86400
+
+/ma-qr/*
+  Cache-Control: public, max-age=86400
+
+# Trang chính: giữ 5 phút, để sửa nội dung là khách thấy gần như ngay
+/index.html
+  Cache-Control: public, max-age=300
