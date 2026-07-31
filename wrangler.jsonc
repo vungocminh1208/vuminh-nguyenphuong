@@ -9,7 +9,7 @@
 {
   // Tên này quyết định địa chỉ web:  <tên>.<subdomain>.workers.dev
   // Đổi thành tên đôi bạn cho đẹp, ví dụ "minhanh-quocbao"
-  "name": "thiep-cuoi",
+  "name": "vuminh-nguyenphuong",
 
   // Ngày này chỉ để Cloudflare biết dùng bộ quy tắc nào. Không cần sửa.
   "compatibility_date": "2026-07-30",
