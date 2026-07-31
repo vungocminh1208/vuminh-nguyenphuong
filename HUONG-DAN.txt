@@ -1,0 +1,293 @@
+═══════════════════════════════════════════════════════════════════
+  THIỆP CƯỚI ONLINE — HƯỚNG DẪN SỬ DỤNG
+═══════════════════════════════════════════════════════════════════
+
+  Ba file phải để cạnh nhau, đúng cấu trúc này:
+
+      index.html
+      anh-cuoi/            <-- ảnh cưới
+      ma-qr/               <-- mã QR chuyển khoản
+
+  File này gộp hướng dẫn cho cả hai thư mục.
+  Phần nhận phản hồi RSVP nằm riêng ở HUONG-DAN-RSVP.md.
+
+
+═══════════════════════════════════════════════════════════════════
+  VIỆC CẦN LÀM, THEO THỨ TỰ
+═══════════════════════════════════════════════════════════════════
+
+  1. Điền tên cô dâu chú rể — 2 dòng ở khối ① trong index.html
+  2. Điền 4 dòng trong <head> — xem biển báo ở đầu file
+  3. Thả ảnh vào anh-cuoi/          (phần A dưới đây)
+  4. Thả mã QR vào ma-qr/           (phần B dưới đây)
+  5. Sửa số tài khoản, địa chỉ, số điện thoại trong khối ③ và phần
+     Mừng cưới
+  6. Nối RSVP vào Google Sheet      (HUONG-DAN-RSVP.md)
+  7. Tự quét thử mã QR bằng điện thoại — ĐỪNG BỎ QUA
+
+
+
+███████████████████████████████████████████████████████████████████
+  PHẦN A — ẢNH CƯỚI  (thư mục anh-cuoi/)
+███████████████████████████████████████████████████████████████████
+
+  Tên file nói luôn chỗ đó cần ảnh DẠNG GÌ, không phải nội dung gì.
+  Cứ kéo ảnh vào rồi đổi tên theo đúng dạng là xong.
+
+  Thêm dần từng ảnh cũng được. Ảnh nào chưa có thì ô đó tự hiện
+  hoạ tiết hoa văn — không bao giờ bị ảnh vỡ hay lỗ trống.
+
+
+───────────────────────────────────────────────────────────────────
+  A1 · CHÍN TÊN FILE
+───────────────────────────────────────────────────────────────────
+
+  bia-anh-ngang.jpg     Ảnh nền trang bìa.
+                        Chọn ảnh THOÁNG, khoảng giữa trống trải,
+                        vì tên cô dâu chú rể nằm đè lên giữa ảnh.
+                        Ảnh ngang, tối thiểu 1600 x 1000.
+
+  01-anh-doc.jpg        ảnh DỌC
+  02-anh-ngang.jpg      ảnh NGANG
+  03-anh-vuong.jpg      ảnh VUÔNG
+  04-anh-vuong.jpg      ảnh VUÔNG
+  05-anh-vuong.jpg      ảnh VUÔNG
+  06-anh-doc.jpg        ảnh DỌC
+  07-anh-ngang.jpg      ảnh NGANG
+  08-anh-vuong.jpg      ảnh VUÔNG
+
+  Tóm lại cần: 2 ảnh dọc · 2 ảnh ngang · 4 ảnh vuông
+
+
+───────────────────────────────────────────────────────────────────
+  A2 · KHÔNG CẦN ĐÚNG ĐUÔI FILE
+───────────────────────────────────────────────────────────────────
+
+  Thiệp tự thử lần lượt 5 đuôi:  .jpg  .JPG  .jpeg  .png  .webp
+
+  Nên máy ảnh trả về JPG chữ hoa, hay ảnh png, đều chạy bình thường.
+  Không phải đổi đuôi, không phải sửa code.
+
+  Riêng ảnh HEIC của iPhone thì trình duyệt không đọc được, bắt buộc
+  phải chuyển sang jpg trước. Trên iPhone: Cài đặt > Camera > Định
+  dạng > chọn "Tương thích nhất" thì từ đó ảnh chụp ra là jpg luôn.
+
+
+───────────────────────────────────────────────────────────────────
+  A3 · ẢNH NÀO NẰM Ở ĐÂU (trên máy tính, lưới 4 cột)
+───────────────────────────────────────────────────────────────────
+
+          cột 1    cột 2    cột 3    cột 4
+        ┌────────┬───────────────┬────────┐
+  hàng 1│   01   │      02       │   03   │
+        │  dọc   │     ngang     │ vuông  │
+        │        ├───────┬───────┼────────┤
+  hàng 2│        │  04   │  05   │   06   │
+        │        │ vuông │ vuông │  dọc   │
+        ├────────┴───────┼───────┤        │
+  hàng 3│      07        │  08   │        │
+        │    ngang       │ vuông │        │
+        └────────────────┴───────┴────────┘
+
+  Trên điện thoại lưới tự co lại còn 2 cột.
+
+  Ảnh được tự cắt vừa khung, nên KHÔNG CẦN cắt sẵn cho đúng tỉ lệ —
+  chỉ cần để mặt người gần giữa ảnh là được.
+
+
+───────────────────────────────────────────────────────────────────
+  A4 · MUỐN GIỮ NGUYÊN TÊN GỐC CỦA ẢNH
+───────────────────────────────────────────────────────────────────
+
+  Khỏi đổi tên gì cả. Mở index.html, tìm khối "④ ẢNH CƯỚI",
+  sửa thẳng 'src' thành tên thật:
+
+      album: [
+        { src: 'IMG_4821.JPG', chu: '', dang: 'cao'  },
+        { src: 'DSC_0093.jpg', chu: '', dang: 'rong' },
+        ...
+      ],
+
+  Dán link ảnh trên mạng cũng được, cứ để nguyên https://…
+
+
+───────────────────────────────────────────────────────────────────
+  A5 · CHÚ THÍCH ẢNH
+───────────────────────────────────────────────────────────────────
+
+  Mặc định để TRỐNG, nên khi khách bấm xem ảnh to sẽ không hiện
+  dòng chữ nào. Làm vậy để tránh chú thích sai lệch với ảnh.
+
+  Muốn có chú thích thì điền vào 'chu':
+
+      { src: '01-anh-doc.jpg', chu: 'Áo dài đỏ, sân nhà ngoại', dang: 'cao' },
+
+  Chỉ điền khi chắc chắn khớp với ảnh đã đặt vào.
+
+
+───────────────────────────────────────────────────────────────────
+  A6 · THÊM / BỚT ẢNH
+───────────────────────────────────────────────────────────────────
+
+  Cứ thêm hoặc bớt dòng trong danh sách album. Nhưng nếu muốn lưới
+  ảnh khít, không hở góc, thì giữ đúng chu kỳ 8 ảnh này:
+
+      dọc · ngang · vuông · vuông · vuông · dọc · ngang · vuông
+
+  Thêm 8 ảnh nữa thì lặp lại đúng chu kỳ đó là lưới vẫn khít.
+
+
+───────────────────────────────────────────────────────────────────
+  A7 · NÉN ẢNH — ĐỪNG BỎ QUA
+───────────────────────────────────────────────────────────────────
+
+  Ảnh máy ảnh thường 5–10 MB một tấm. Chín tấm là gần 100 MB, khách
+  mở thiệp bằng 4G sẽ phải chờ rất lâu rồi bỏ luôn.
+
+  Nén xuống dưới 400 KB mỗi tấm, chiều rộng 1600px là đủ nét cho cả
+  điện thoại và máy tính. Dùng squoosh.app — miễn phí, chạy ngay
+  trên trình duyệt, không cần cài gì.
+
+  Lưu được .webp thì nhẹ hơn .jpg khoảng một nửa mà mắt thường không
+  thấy khác. Không cần sửa gì trong code, thiệp tự nhận đuôi .webp.
+
+
+
+███████████████████████████████████████████████████████████████████
+  PHẦN B — MÃ QR CHUYỂN KHOẢN  (thư mục ma-qr/)
+███████████████████████████████████████████████████████████████████
+
+───────────────────────────────────────────────────────────────────
+  B1 · TẤT CẢ THÔNG TIN TÀI KHOẢN Ở MỘT CHỖ
+───────────────────────────────────────────────────────────────────
+
+  Thả hai file này vào thư mục ma-qr/ :
+
+      qr-co-dau.png     Mã QR tài khoản cô dâu
+      qr-chu-re.png     Mã QR tài khoản chú rể
+
+  Không cần đúng đuôi file — thiệp tự thử .png .jpg .JPG .jpeg .webp
+
+  Còn tên ngân hàng, số tài khoản, chi nhánh thì sửa trong
+  index.html, khối "⑤ MỪNG CƯỚI". Mỗi người MỘT khối:
+
+      taiKhoan: [
+        {
+          vai:      'Cô dâu',
+          nguoi:    'coDau',              <- tự lấy họ tên từ khối ①
+          nganHang: 'Vietcombank',
+          chiNhanh: 'CN Thành Công',      <- để '' nếu không muốn hiện
+          soTK:     '0123 4567 8910',
+          qr:       'qr-co-dau.png'
+        },
+        { ... khối của chú rể ... }
+      ],
+
+  SỐ TÀI KHOẢN CHỈ GHI ĐÚNG MỘT LẦN. Phần hiển thị trên thiệp và nút
+  "Sao chép số tài khoản" đều lấy từ dòng soTK đó, nên không bao giờ
+  có chuyện hai chỗ lệch nhau.
+
+  Ghi soTK có khoảng trắng cho dễ đọc cũng được — nút sao chép tự bỏ
+  khoảng trắng khi copy.
+
+  Tên chủ tài khoản không phải nhập: tự lấy họ tên ở khối ① rồi bỏ
+  dấu, viết hoa. 'Lê Thị Thu Trang' thành 'LE THI THU TRANG'.
+
+
+  THÊM TÀI KHOẢN THỨ BA (bố mẹ, nhà gái…)
+
+  Thêm một khối nữa vào danh sách, bỏ 'nguoi' đi và ghi thẳng họ tên:
+
+      {
+        vai:      'Nhà gái',
+        hoTen:    'Lê Văn Đức',
+        nganHang: 'Agribank',
+        chiNhanh: 'CN Vĩnh Yên',
+        soTK:     '3600 2050 1234 56',
+        qr:       'qr-nha-gai.png'
+      }
+
+  Thẻ tự dàn lại theo số lượng, không phải sửa gì thêm.
+
+
+───────────────────────────────────────────────────────────────────
+  B2 · ⚠  CHƯA CÓ FILE THÌ THIỆP HIỆN GÌ
+───────────────────────────────────────────────────────────────────
+
+  Hiện một khung mã mẫu, KÈM DÒNG CHỮ ĐỎ ngay dưới:
+
+      MÃ MẪU — CHƯA QUÉT ĐƯỢC
+
+  Khung đó nhìn giống mã QR thật nhưng quét không ra. Dòng chữ đỏ
+  là để anh/chị và khách đều thấy ngay, không ai quét vô ích.
+
+  Thấy dòng chữ đó nghĩa là CHƯA XONG. Đừng gửi thiệp đi.
+
+
+───────────────────────────────────────────────────────────────────
+  B3 · TẠO MÃ QR Ở ĐÂU
+───────────────────────────────────────────────────────────────────
+
+  Cách 1 — Ngay trong app ngân hàng (khuyên dùng)
+      Hầu hết app Việt Nam đều có sẵn: Vietcombank, Techcombank,
+      MB, BIDV, VPBank, ACB… Tìm mục "Mã QR của tôi" hoặc
+      "Nhận tiền" > "Chia sẻ mã QR", rồi lưu ảnh về máy.
+      Mã này chuẩn VietQR, mọi app khác quét được.
+
+  Cách 2 — vietqr.io
+      Nhập tên ngân hàng, số tài khoản, tên chủ tài khoản,
+      rồi tải ảnh về.
+
+  ĐỪNG đặt số tiền cố định vào mã. Mừng cưới là tuỳ tâm khách —
+  mã có sẵn số tiền sẽ khiến khách khó xử.
+
+  NÊN để mã có kèm tên chủ tài khoản, để khách nhìn thấy đang
+  chuyển cho ai trước khi bấm xác nhận.
+
+
+───────────────────────────────────────────────────────────────────
+  B4 · YÊU CẦU ẢNH
+───────────────────────────────────────────────────────────────────
+
+  Vuông, tối thiểu 500 x 500. Nền trắng, đừng nền trong suốt.
+
+  Cắt sát mã, bỏ hết viền thừa và logo ngân hàng cỡ lớn. Ô trên
+  thiệp chỉ khoảng 150 pixel, viền thừa làm mã nhỏ lại, khó quét.
+
+  Dùng .png, đừng nén .jpg quá mạnh. Mã QR là các ô vuông đen
+  trắng sắc nét, nén jpg mạnh làm nhoè viền và máy quét dễ trượt.
+
+
+───────────────────────────────────────────────────────────────────
+  B5 · BẮT BUỘC TỰ QUÉT THỬ TRƯỚC KHI GỬI THIỆP
+───────────────────────────────────────────────────────────────────
+
+  1. Mở thiệp trên máy tính, cuộn tới phần Mừng cưới.
+  2. Lấy điện thoại, mở app ngân hàng, quét mã trên màn hình.
+  3. Xác nhận đúng số tài khoản và đúng tên chủ tài khoản.
+     DỪNG LẠI Ở BƯỚC XEM THÔNG TIN, không cần chuyển tiền thật.
+  4. Làm lại trên điện thoại: mở thiệp bằng điện thoại thứ hai
+     rồi quét, vì mã bị co nhỏ trên màn hình điện thoại.
+
+  Sai số tài khoản thì tiền mừng của khách vào tay người khác, và
+  gần như không lấy lại được. Bước này đáng 2 phút.
+
+
+───────────────────────────────────────────────────────────────────
+  B6 · MỘT LƯU Ý VỀ RIÊNG TƯ
+───────────────────────────────────────────────────────────────────
+
+  Thiệp thường được gửi qua Zalo, Facebook rồi chuyển tiếp tự do.
+  Ai có link đều xem được số tài khoản và mã QR này.
+
+  Với tiền mừng cưới thì bình thường. Nhưng nên dùng tài khoản
+  anh/chị thoải mái công khai, đừng dùng tài khoản gắn với tiết
+  kiệm hay vay vốn.
+
+  Còn một chỗ vẫn phải tự kiểm: dòng soTK trong khối ⑤ và số tài
+  khoản NẰM BÊN TRONG ảnh mã QR là hai thứ độc lập. Thiệp không đọc
+  được nội dung mã QR nên không thể tự đối chiếu hộ.
+
+  Đổi số tài khoản thì phải tạo lại mã QR mới. Đổi mã QR mà quên sửa
+  soTK thì khách quét mã ra một số, bấm nút sao chép ra số khác.
+  Bước quét thử ở B5 chính là để bắt lỗi này.
