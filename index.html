@@ -21,7 +21,7 @@
      ═══════════════════════════════════════════════════════════════════════ -->
 <title>{{TEN_CO_DAU}} ♥ {{TEN_CHU_RE}} — Thiệp cưới 19.09.2026</title>
 <meta property="og:title" content="{{TEN_CO_DAU}} ♥ {{TEN_CHU_RE}} — Thiệp cưới 19.09.2026">
-<meta name="description" content="Thiệp mời cưới {{HO_TEN_CO_DAU}} & {{HO_TEN_CHU_RE}} — Thứ Bảy, 19 tháng 9 năm 2026 tại Vĩnh Phúc. Xin gửi tới bạn lời mời trân trọng nhất.">
+<meta name="description" content="Thiệp mời cưới {{HO_TEN_CO_DAU}} & {{HO_TEN_CHU_RE}} — Thứ Bảy, 19 tháng 9 năm 2026 tại Phú Thọ. Xin gửi tới bạn lời mời trân trọng nhất.">
 <meta property="og:image" content="{{DIA_CHI_WEB}}/anh-cuoi/bia-anh-ngang.jpg">
 <!-- ═══════════ hết phần phải sửa tay ═══════════ -->
 <meta name="theme-color" content="#8B0000">
@@ -30,7 +30,7 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="vi_VN">
 <meta property="og:site_name" content="Thiệp cưới">
-<meta property="og:description" content="Chúng mình sắp về một nhà. Trân trọng kính mời bạn tới chung vui ngày 19.09.2026 tại Vĩnh Phúc.">
+<meta property="og:description" content="Chúng mình sắp về một nhà. Trân trọng kính mời bạn tới chung vui ngày 19.09.2026 tại Phú Thọ.">
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,8 +55,8 @@
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Số 27, đường Kim Ngọc, phường Liên Bảo",
-        "addressLocality": "TP Vĩnh Yên, Vĩnh Phúc",
-        "addressRegion": "Vĩnh Phúc",
+        "addressLocality": "TP Vĩnh Yên, Phú Thọ",
+        "addressRegion": "Phú Thọ",
         "addressCountry": "VN"
       }
     },
@@ -66,8 +66,8 @@
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Thôn Yên Thư, xã Yên Phương",
-        "addressLocality": "Huyện Yên Lạc, Vĩnh Phúc",
-        "addressRegion": "Vĩnh Phúc",
+        "addressLocality": "Huyện Yên Lạc, Phú Thọ",
+        "addressRegion": "Phú Thọ",
         "addressCountry": "VN"
       }
     }
@@ -440,7 +440,9 @@ a{color:inherit}
 .dieu:hover{color:var(--vang-kim)}
 .dieu--t{left:0}.dieu--p{right:0}
 @media(max-width:640px){.dieu{width:15%;font-size:24px}}
-#dong-kinh{position:absolute;top:20px;right:22px;border:0;background:none;cursor:pointer;
+/* z-index:2 để nút X nổi TRÊN dải bấm "ảnh sau" (.dieu--p) — dải đó
+   phủ cả góc phải màn hình, không có dòng này thì bấm X lại ra ảnh kế */
+#dong-kinh{position:absolute;top:20px;right:22px;z-index:2;border:0;background:none;cursor:pointer;
   color:rgba(255,255,255,.6);font-size:26px;line-height:1;padding:8px;transition:.3s}
 #dong-kinh:hover{color:var(--vang-kim);transform:rotate(90deg)}
 
@@ -656,7 +658,7 @@ a{color:inherit}
       <div class="si" aria-hidden="true"><svg><use href="#hy"/></svg></div>
       <p class="moi-p">Trân trọng kính mời</p>
       <p class="ten-p" data-h="tenCapGate">{{TEN_CO_DAU}}<em>♥</em>{{TEN_CHU_RE}}</p>
-      <p class="ngay-p" data-t="ngayGate">19 · 09 · 2026 — VĨNH PHÚC</p>
+      <p class="ngay-p" data-t="ngayGate">19 · 09 · 2026 — Phú Thọ</p>
       <button class="nut" id="mo-thiep"><span>Mở thiệp mời</span></button>
     </div>
   </div>
@@ -667,6 +669,7 @@ a{color:inherit}
   <a class="dau-hieu" href="#hero" style="text-decoration:none" data-h="mono">{{CHU_LONG}}</a>
   <nav id="menu" aria-label="Mục lục thiệp">
     <a href="#le-cuoi">Lễ cưới</a>
+    <a href="#tiec-cuoi">Tiệc cưới</a>
     <a href="#album">Album</a>
     <a href="#xac-nhan">Xác nhận tham dự</a>
     <a href="#mung-cuoi">Mừng cưới</a>
@@ -739,8 +742,21 @@ a{color:inherit}
   </div>
 </section>
 
+<!-- ════════ 2b · THÔNG TIN TIỆC CƯỚI — dựng từ CAUHINH.tiecCuoi (khối ③b) ════════ -->
+<section id="tiec-cuoi" class="sec">
+  <div class="bo">
+    <div class="dau giua len">
+      <div class="chi"><i></i><b></b><i></i></div>
+      <p class="nhan" style="margin-top:22px" data-t="khoangNgayTiec"></p>
+      <h2 class="de">Thông tin tiệc cưới</h2>
+      <p class="dan giua" style="margin:20px auto 0">Rất hân hạnh được đón tiếp bạn tại bữa tiệc thân mật của gia đình chúng mình.</p>
+    </div>
+    <div class="the-doi" id="the-doi-tiec"></div>
+  </div>
+</section>
+
 <!-- ════════ 3 · ALBUM ════════ -->
-<section id="album" class="sec">
+<section id="album" class="sec sec--kem">
   <div class="bo">
     <div class="dau giua len">
       <div class="chi"><i></i><b></b><i></i></div>
@@ -890,7 +906,7 @@ a{color:inherit}
     <p class="cam-on">Cảm ơn bạn</p>
     <p class="tri-an">Cảm ơn bố mẹ đã cho chúng con một mái nhà để lớn lên, và dạy chúng con thế nào là thương một người cho tử tế. Cảm ơn bạn bè đã ở bên chúng mình từ những ngày đầu — trong những chuyến đi, những lần cãi vã, những lần làm lành. <span data-t="ngayCuoiChu">Ngày 19 tháng 9</span>, chúng mình bắt đầu một chương mới. Và chúng mình muốn bắt đầu nó khi có bạn trong phòng.</p>
     <p class="hai-ten" data-h="tenCapKet">{{TEN_CO_DAU}} <i>♥</i> {{TEN_CHU_RE}}</p>
-    <p class="chan" data-t="chanTrang">Vĩnh Phúc · 19 · 09 · 2026</p>
+    <p class="chan" data-t="chanTrang">Phú Thọ · 19 · 09 · 2026</p>
   </div>
 </footer>
 
@@ -913,10 +929,10 @@ a{color:inherit}
 
      ★★★   C H Ỉ   S Ử A   T R O N G   K H Ố I   N À Y   ★★★
 
-     ①  Cô dâu & chú rể         ⑤  Mừng cưới — mã QR
-     ②  Ngày giờ                ⑥  Nhận phản hồi RSVP
-     ③  Hai địa điểm            ⑦  Câu chữ
-     ④  Ảnh cưới
+     ①  Cô dâu & chú rể         ④  Ảnh cưới
+     ②  Ngày giờ                ⑤  Mừng cưới — mã QR
+     ③  Hai địa điểm (lễ)       ⑥  Nhận phản hồi RSVP
+     ③b Tiệc cưới               ⑦  Câu chữ
 
      Sửa ở đây là cả trang tự cập nhật theo: thứ trong tuần, ngày âm
      lịch, buổi trong ngày, đếm ngược, số ngày bên nhau, bản đồ, nút
@@ -943,11 +959,11 @@ const CAUHINH = {
    Chỉ nhập ngày dương lịch dạng NĂM-THÁNG-NGÀY.
    Ngày âm lịch, can chi và thứ trong tuần được TỰ TÍNH.         */
 
-  ngayCuoi:     '2026-09-19',   // ngày chính: trang bìa, đếm ngược, SEO
+  ngayCuoi:     '2026-09-20',   // ngày chính: trang bìa, đếm ngược, SEO
   gioChinh:     '15:30',        // mốc đồng hồ đếm ngược nhắm tới
   hanPhanHoi:   '2026-09-02',   // hạn khách xác nhận tham dự
   ngayQuenNhau: '2024-01-08',   // để tính "đã bên nhau bao nhiêu ngày"
-  thanhPho:     'Vĩnh Phúc',
+  thanhPho:     'Phú Thọ',
 
 
 /* ═════════════════ ③ HAI ĐỊA ĐIỂM ═════════════════
@@ -991,18 +1007,54 @@ const CAUHINH = {
       ngay: '2026-09-20',  gio: '09:00',  ghiChu: 'Đón khách từ 08:30',
       ten:       'Tư gia nhà gái',
       diaChi:    'TDP Hà Châu, xã Bình Xuyên',
-      khuVuc:    'Vĩnh Phúc',
+      khuVuc:    'Phú Thọ',
       dienThoai: '0965 410 846',
-      linkBanDo: 'https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d964.396121068292!2d105.63855921996795!3d21.33357151590949!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1svi!2s!4v1785662191229!5m2!1svi!2s'        // <-- DÁN LINK GOOGLE MAPS NHÀ GÁI VÀO ĐÂY
+      linkBanDo: 'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d232.27670853675855!2d105.63850198816627!3d21.333632973492477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDIwJzAwLjkiTiAxMDXCsDM4JzE4LjUiRQ!5e0!3m2!1svi!2s!4v1785666914113!5m2!1svi!2s'        // <-- DÁN LINK GOOGLE MAPS NHÀ GÁI VÀO ĐÂY
     },
     {
       nhan: 'Nhà trai', tieuDe: 'Lễ Thành Hôn', bieuTuong: 'hy',
       ngay: '2026-09-20',  gio: '10:30',  ghiChu: 'Đón khách từ 8:30',
       ten:       'Tư gia nhà trai',
       diaChi:    'Thôn Thúy Sơn, xã Tam Dương Bắc',
-      khuVuc:    'Vĩnh Phúc',
+      khuVuc:    'Phú Thọ',
       dienThoai: '0985 284 811',
-      linkBanDo: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1113.5084003222755!2d105.55788909165369!3d21.426762194177694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134e9006ded2f9d%3A0x9766e42e17c90dfa!2zSMOgIFRodcO9!5e1!3m2!1svi!2s!4v1785662041963!5m2!1svi!2s'        // <-- DÁN LINK GOOGLE MAPS NHÀ TRAI VÀO ĐÂY
+      linkBanDo: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d780.7854462305856!2d105.55774614217394!3d21.42679092208595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134e9006ded2f9d%3A0x9766e42e17c90dfa!2zSMOgIFRodcO9!5e0!3m2!1svi!2s!4v1785666804116!5m2!1svi!2s'        // <-- DÁN LINK GOOGLE MAPS NHÀ TRAI VÀO ĐÂY
+    }
+  ],
+
+
+/* ═════════════════ ③b TIỆC CƯỚI ═════════════════
+   Các trường GIỐNG HỆT khối ③ ở trên — mỗi tiệc một khối, sửa
+   thoải mái. Thẻ tiệc không có khung bản đồ nhúng, nhưng nút
+   "Xem chỉ đường" và "Nhắn Zalo" vẫn hoạt động y như thẻ lễ.
+
+   bieuTuong : 'hy' chữ song hỷ · 'nhan' đôi nhẫn · 'long' đèn lồng
+   linkBanDo : dán link Google Maps (bất kỳ dạng nào) — chỉ dùng
+               cho nút "Xem chỉ đường". Để '' thì nút tự tìm theo
+               diaChi + khuVuc.
+   dienThoai : để '' nếu không muốn hiện nút Nhắn Zalo trên thẻ.
+
+   KHÔNG TỔ CHỨC TIỆC RIÊNG? Xoá hết bên trong cho thành
+   tiecCuoi: [] — cả mục Tiệc cưới và link trên menu tự ẩn đi.  */
+
+  tiecCuoi: [
+    {
+      nhan: 'Nhà gái',  tieuDe: 'Tiệc cưới nhà gái',  bieuTuong: 'long',
+      ngay: '2026-09-19',  gio: '15:00',  ghiChu: 'Khai tiệc 15:30',
+      ten:       'Tư gia nhà gái',
+      diaChi:    'TDP Hà Châu, xã Bình Xuyên',
+      khuVuc:    'Phú Thọ',
+      dienThoai: '0965 410 846',
+      linkBanDo: 'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d232.27670853675855!2d105.63850198816627!3d21.333632973492477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDIwJzAwLjkiTiAxMDXCsDM4JzE4LjUiRQ!5e0!3m2!1svi!2s!4v1785666914113!5m2!1svi!2s'        // <-- DÁN LINK GOOGLE MAPS TIỆC NHÀ GÁI (nếu khác nơi làm lễ)
+    },
+    {
+      nhan: 'Nhà trai', tieuDe: 'Tiệc cưới nhà trai', bieuTuong: 'long',
+      ngay: '2026-09-20',  gio: '15:00',  ghiChu: 'Khai tiệc 15:30',
+      ten:       'UBND xã Tam Dương Bắc',
+      diaChi:    'xã Tam Dương Bắc',
+      khuVuc:    'Phú Thọ',
+      dienThoai: '0985 284 811',
+      linkBanDo: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1561.5754944333667!2d105.55122818944338!3d21.426360652053567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134e9004f28acd9%3A0xc2137944b7a55bcb!2zVUJORCBYw6MgVGFtIETGsMahbmcgQuG6r2M!5e0!3m2!1svi!2s!4v1785667111754!5m2!1svi!2s'        // <-- DÁN LINK GOOGLE MAPS TIỆC NHÀ TRAI (nếu khác nơi làm lễ)
     }
   ],
 
@@ -1296,6 +1348,14 @@ const V = {
     : cacNgay.map(x => { const [a, b, c] = tach(x); return `${hai(c)}.${hai(b)}.${a}`; }).join('  &  ');
 }
 
+/* Dòng ngày trên đầu mục Tiệc cưới — tính từ CAUHINH.tiecCuoi (khối ③b) */
+{
+  const cacNgay = [...new Set((C.tiecCuoi || []).map(d => d.ngay))];
+  V.khoangNgayTiec = cacNgay.length === 1
+    ? (() => { const [a, b, c] = tach(cacNgay[0]); return `${amLich(c, b, a).thu} · ${hai(c)} · ${hai(b)} · ${a}`; })()
+    : cacNgay.map(x => { const [a, b, c] = tach(x); return `${hai(c)}.${hai(b)}.${a}`; }).join('  &  ');
+}
+
 $$('[data-t]').forEach(e => { const v = V[e.dataset.t]; if (v !== undefined) e.textContent = v; });
 $$('[data-h]').forEach(e => { const v = V[e.dataset.h]; if (v !== undefined) e.innerHTML  = v; });
 $$('[data-ph]').forEach(e => { const v = V[e.dataset.ph]; if (v !== undefined) e.placeholder = v; });
@@ -1423,6 +1483,17 @@ function datAnh(hop, ten, alt, i){
   gapAnh(boc, ds, src => `<img src="${src}" alt="">`, () => boc.remove());
   $('#hero').prepend(boc);
 })();
+
+/* ── 0 · LUÔN MỞ TỪ ĐẦU TRANG ──────────────────────────────
+   Trình duyệt mặc định NHỚ vị trí cuộn khi tải lại trang. Thiệp
+   có màn niêm phong che toàn trang, nên tải lại mà đứng giữa
+   trang thì mở niêm phong xong khách rơi vào lưng chừng — ép về
+   đầu trang cho đúng nhịp xem thiệp.
+   Riêng link có #hash (ví dụ …/#xac-nhan) vẫn nhảy tới đúng mục. */
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+if (!location.hash) scrollTo(0, 0);
+/* trang lấy từ bfcache (bấm nút Back trên điện thoại) cũng về đầu */
+addEventListener('pageshow', e => { if (e.persisted && !location.hash) scrollTo(0, 0); });
 
 /* ── 1 · MỞ NIÊM PHONG ─────────────────────────────────────── */
 const phong = $('#phong');
@@ -1571,8 +1642,8 @@ function napBanDo(){
   if (u) khungDo.src = u;
 }
 
-const oThe = $('#the-doi'), oTab = $('#tab-do'), cuoi = C.diaDiem.length - 1;
-C.diaDiem.forEach((d, i) => {
+/* Dựng MỘT thẻ địa điểm — dùng chung cho mục Lễ cưới và Tiệc cưới */
+function taoTheDiaDiem(d){
   const [dY, dM, dD] = tach(d.ngay), al = amLich(dD, dM, dY);
 
   const the = document.createElement('div');
@@ -1591,7 +1662,12 @@ C.diaDiem.forEach((d, i) => {
           ? `<a class="lien" href="https://zalo.me/${soZalo(d.dienThoai)}" target="_blank" rel="noopener">Nhắn Zalo ${esc(d.nhan.toLowerCase())} →</a>`
           : '')
     + `</div>`;
-  oThe.appendChild(the);
+  return the;
+}
+
+const oThe = $('#the-doi'), oTab = $('#tab-do'), cuoi = C.diaDiem.length - 1;
+C.diaDiem.forEach((d, i) => {
+  oThe.appendChild(taoTheDiaDiem(d));
 
   const nut = document.createElement('button');
   nut.type = 'button';
@@ -1611,6 +1687,20 @@ if (typeof IntersectionObserver === 'function') {
   }, { rootMargin: '400px 0px' }).observe($('#do-boc'));
 } else {
   napBanDo();
+}
+
+/* ── 4b · THẺ TIỆC CƯỚI — dựng từ CAUHINH.tiecCuoi (khối ③b) ──
+   Không có khung bản đồ riêng; nút "Xem chỉ đường" trên từng thẻ
+   vẫn mở đúng địa điểm. tiecCuoi: [] thì cả mục và link menu tự ẩn. */
+{
+  const dsTiec = C.tiecCuoi || [];
+  if (!dsTiec.length) {
+    $('#tiec-cuoi')?.remove();
+    $$('#menu a[href="#tiec-cuoi"]').forEach(a => a.remove());
+  } else {
+    const oTiec = $('#the-doi-tiec');
+    dsTiec.forEach(d => oTiec.appendChild(taoTheDiaDiem(d)));
+  }
 }
 
 /* ── 5 · ALBUM & KHUNG XEM ẢNH ─────────────────────────────── */
